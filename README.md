@@ -18,7 +18,7 @@ MY  PROJECT IDEA
 -
 ..[CART](https://robu.in/cart/)
 ..[LOGIN-RB](https://robu.in/login/)
-..[]()
+..[whislist](https://robu.in/my-account/wishlist/)
 ..[]()
 ..[]()
 <a href="http://stackoverflow.com" target="_blank">Go</a>
