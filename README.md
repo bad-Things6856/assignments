@@ -21,6 +21,3 @@ MY  PROJECT IDEA
 ..[]()
 ..[]()
 ..[]()
-<a href="https://robu.in/login/" target="_blank" rel="noopener noreferrer">LOGIN-RB</a>
-[Click here](https://robu.in/login/){:target="_blank"}
-
