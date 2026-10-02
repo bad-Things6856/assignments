@@ -1,6 +1,6 @@
 GitHub project:
 \
-https://bad-things6856.github.io/assignments
+https://bad-things6856.github.io/assignments/
 -
 \
 MY  PROJECT IDEA
