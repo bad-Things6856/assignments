@@ -1,35 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#0a0b0b">
-  <meta name="description" content="P4 LAB — Explore ESP32-P4 projects, HMI displays, embedded systems, electronics experiments and maker builds.">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0a0b0b" />
+  <meta name="description" content="P4 LAB — Explore ESP32-P4 projects, HMI displays, embedded systems, electronics experiments and maker builds." />
   <title>P4 LAB — Build Beyond Limits</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
   <style>
     :root {
       --bg: #0a0b0b;
       --panel: #111413;
-      --panel2: #171b19;
+      --panel-2: #171b19;
       --lime: #c8ff35;
       --cyan: #55f5e0;
       --text: #f0f2ed;
       --muted: #929b94;
-      --border: rgba(255,255,255,.11);
+      --border: rgba(255, 255, 255, 0.11);
       --mono: "DM Mono", monospace;
       --display: "Barlow Condensed", sans-serif;
       --body: "Inter", sans-serif;
       --width: 1200px;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-    html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 90px;
+    }
 
     body {
       background: var(--bg);
@@ -46,16 +53,30 @@
       z-index: -1;
       pointer-events: none;
       background-image:
-        linear-gradient(rgba(255,255,255,.018) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.018) 1px, transparent 1px);
+        linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px);
       background-size: 44px 44px;
       mask-image: linear-gradient(to bottom, black, transparent 85%);
+      -webkit-mask-image: linear-gradient(to bottom, black, transparent 85%);
     }
 
-    a { color: inherit; text-decoration: none; }
-    button, input { font: inherit; }
-    button { cursor: pointer; }
-    img { display: block; max-width: 100%; }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button, input {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
 
     .container {
       width: min(var(--width), calc(100% - 48px));
@@ -68,7 +89,9 @@
       text-transform: uppercase;
     }
 
-    .lime { color: var(--lime); }
+    .lime {
+      color: var(--lime);
+    }
 
     .eyebrow {
       display: inline-flex;
@@ -87,14 +110,13 @@
       background: var(--lime);
     }
 
-    /* NAVIGATION */
-
     .nav-wrap {
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(10,11,11,.86);
+      background: rgba(10, 11, 11, 0.86);
       backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
       border-bottom: 1px solid var(--border);
     }
 
@@ -143,14 +165,21 @@
     .nav-links a {
       color: #b5bcb6;
       font-size: 12px;
-      transition: color .2s;
+      transition: color 0.2s ease;
     }
 
-    .nav-links a:hover { color: var(--lime); }
+    .nav-links a:hover {
+      color: var(--lime);
+    }
 
-    .nav-actions { display: flex; align-items: center; gap: 12px; }
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
 
-    .search-toggle, .menu-toggle {
+    .search-toggle,
+    .menu-toggle {
       width: 39px;
       height: 39px;
       display: grid;
@@ -158,9 +187,19 @@
       background: transparent;
       color: var(--text);
       border: 1px solid var(--border);
+      transition: border-color 0.2s ease, color 0.2s ease;
     }
 
-    .menu-toggle { display: none; font-size: 20px; }
+    .search-toggle:hover,
+    .menu-toggle:hover {
+      color: var(--lime);
+      border-color: var(--lime);
+    }
+
+    .menu-toggle {
+      display: none;
+      font-size: 20px;
+    }
 
     .button {
       display: inline-flex;
@@ -173,8 +212,8 @@
       border: 1px solid var(--lime);
       font: 700 11px var(--mono);
       text-transform: uppercase;
-      letter-spacing: .7px;
-      transition: .2s;
+      letter-spacing: 0.7px;
+      transition: transform 0.2s ease, background 0.2s ease;
     }
 
     .button:hover {
@@ -200,7 +239,9 @@
       border-top: 1px solid var(--border);
     }
 
-    .search-panel.active { display: block; }
+    .search-panel.active {
+      display: block;
+    }
 
     .search-panel input {
       width: 100%;
@@ -211,22 +252,24 @@
       outline: none;
     }
 
-    .search-panel input:focus { border-color: var(--lime); }
+    .search-panel input:focus {
+      border-color: var(--lime);
+    }
 
-    /* HERO */
-
-    .hero { padding: 82px 0 50px; }
+    .hero {
+      padding: 82px 0 50px;
+    }
 
     .hero-grid {
       display: grid;
-      grid-template-columns: 1.05fr .95fr;
+      grid-template-columns: 1.05fr 0.95fr;
       gap: 50px;
       align-items: center;
     }
 
     .hero h1 {
       margin: 25px 0 20px;
-      font: 900 clamp(64px, 8.6vw, 112px)/.85 var(--display);
+      font: 900 clamp(64px, 8.6vw, 112px)/0.85 var(--display);
       letter-spacing: -2px;
       text-transform: uppercase;
     }
@@ -236,7 +279,9 @@
       -webkit-text-stroke: 1.5px #f0f2ed;
     }
 
-    .hero h1 .accent { color: var(--lime); }
+    .hero h1 .accent {
+      color: var(--lime);
+    }
 
     .hero-copy {
       max-width: 480px;
@@ -246,7 +291,11 @@
       margin-bottom: 28px;
     }
 
-    .hero-buttons { display: flex; flex-wrap: wrap; gap: 12px; }
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
 
     .hero-meta {
       display: flex;
@@ -274,7 +323,7 @@
       position: relative;
       min-height: 430px;
       background:
-        radial-gradient(ellipse at 50% 50%, rgba(200,255,53,.13), transparent 55%),
+        radial-gradient(ellipse at 50% 50%, rgba(200,255,53,0.13), transparent 55%),
         linear-gradient(135deg, #171c18, #0d100f);
       border: 1px solid var(--border);
       overflow: hidden;
@@ -282,10 +331,11 @@
       place-items: center;
     }
 
-    .hero-visual::before, .hero-visual::after {
+    .hero-visual::before,
+    .hero-visual::after {
       content: "";
       position: absolute;
-      border: 1px solid rgba(200,255,53,.2);
+      border: 1px solid rgba(200,255,53,0.2);
       border-radius: 50%;
       width: 310px;
       height: 310px;
@@ -295,7 +345,7 @@
     .hero-visual::after {
       width: 390px;
       height: 390px;
-      border-color: rgba(85,245,224,.13);
+      border-color: rgba(85,245,224,0.13);
       animation-direction: reverse;
       animation-duration: 25s;
     }
@@ -307,7 +357,7 @@
       height: 220px;
       background: linear-gradient(145deg, #252d26, #0b0f0d);
       border: 2px solid #53614a;
-      box-shadow: 0 0 70px rgba(200,255,53,.12), inset 0 0 45px rgba(200,255,53,.05);
+      box-shadow: 0 0 70px rgba(200,255,53,0.12), inset 0 0 45px rgba(200,255,53,0.05);
       display: grid;
       place-items: center;
       transform: rotate(-8deg);
@@ -317,15 +367,18 @@
       content: "";
       position: absolute;
       inset: -13px;
-      border: 1px solid rgba(200,255,53,.45);
-      background: repeating-linear-gradient(90deg, transparent 0 15px, rgba(200,255,53,.6) 15px 18px, transparent 18px 28px) top / 100% 6px no-repeat,
-                  repeating-linear-gradient(90deg, transparent 0 15px, rgba(200,255,53,.6) 15px 18px, transparent 18px 28px) bottom / 100% 6px no-repeat;
+      border: 1px solid rgba(200,255,53,0.45);
+      background:
+        repeating-linear-gradient(90deg, transparent 0 15px, rgba(200,255,53,0.6) 15px 18px, transparent 18px 28px) top / 100% 6px no-repeat,
+        repeating-linear-gradient(90deg, transparent 0 15px, rgba(200,255,53,0.6) 15px 18px, transparent 18px 28px) bottom / 100% 6px no-repeat;
     }
 
-    .chip-inner { text-align: center; }
+    .chip-inner {
+      text-align: center;
+    }
 
     .chip-inner .chip-symbol {
-      font: 900 66px/.9 var(--display);
+      font: 900 66px/0.9 var(--display);
       color: var(--lime);
       letter-spacing: -5px;
     }
@@ -341,10 +394,11 @@
       position: absolute;
       z-index: 3;
       padding: 12px 15px;
-      background: rgba(15,19,16,.92);
+      background: rgba(15, 19, 16, 0.92);
       border: 1px solid var(--border);
       font: 10px var(--mono);
       backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
     }
 
     .float-label b {
@@ -354,9 +408,20 @@
       margin-top: 4px;
     }
 
-    .float-a { top: 35px; left: 25px; }
-    .float-b { bottom: 38px; right: 22px; }
-    .float-c { top: 45%; right: 12px; }
+    .float-a {
+      top: 35px;
+      left: 25px;
+    }
+
+    .float-b {
+      bottom: 38px;
+      right: 22px;
+    }
+
+    .float-c {
+      top: 45%;
+      right: 12px;
+    }
 
     .scanline {
       position: absolute;
@@ -365,7 +430,7 @@
       width: 100%;
       height: 2px;
       background: linear-gradient(90deg, transparent, var(--lime), transparent);
-      opacity: .6;
+      opacity: 0.6;
       animation: scan 6s linear infinite;
     }
 
@@ -378,8 +443,6 @@
       from { transform: rotate(0deg); }
       to { transform: rotate(360deg); }
     }
-
-    /* TICKER */
 
     .ticker {
       background: var(--lime);
@@ -405,1638 +468,604 @@
       to { transform: translateX(-50%); }
     }
 
-    /* SHARED SECTIONS */
-
-    section { padding: 95px 0; }
+    section {
+      padding: 95px 0;
+    }
 
     .section-heading {
       display: flex;
       align-items: end;
       justify-content: space-between;
       gap: 25px;
-      margin-bottom: 
-35px;
-}
-
-.section-heading h2 {
-  margin-top: 15px;
-  font: 900 clamp(42px, 6vw, 72px)/.95 var(--display);
-  text-transform: uppercase;
-  letter-spacing: -1px;
-}
-
-.section-heading p {
-  max-width: 390px;
-  color: var(--muted);
-  font-size: 13px;
-}
-
-.section-number {
-  color: var(--lime);
-  font: 12px var(--mono);
-  margin-bottom: 12px;
-}
-
-.card-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 18px;
-}
-
-.feature-card {
-  background: var(--panel);
-  border: 1px solid var(--border);
-  padding: 25px;
-  transition: .3s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-.feature-card:hover {
-  border-color: var(--lime);
-  transform: translateY(-6px);
-}
-
-.card-icon {
-  width: 50px;
-  height: 50px;
-  display: grid;
-  place-items: center;
-  background: rgba(200,255,53,.09);
-  color: var(--lime);
-  font-size: 24px;
-  margin-bottom: 23px;
-}
-
-.feature-card h3 {
-  font: 700 25px var(--display);
-  text-transform: uppercase;
-  margin-bottom: 10px;
-}
-
-.feature-card p {
-  color: var(--muted);
-  font-size: 12px;
-  line-height: 1.9;
-}
-
-.card-link {
-  display: inline-flex;
-  gap: 8px;
-  margin-top: 22px;
-  color: var(--lime);
-  font: 10px var(--mono);
-  text-transform: uppercase;
-}
-
-.card-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 23px;
-}
-
-.tag {
-  display: inline-block;
-  padding: 5px 9px;
-  border: 1px solid var(--border);
-  color: var(--muted);
-  font: 9px var(--mono);
-  text-transform: uppercase;
-}
-
-.tag.hot {
-  color: var(--lime);
-  border-color: rgba(200,255,53,.4);
-}
-
-.project-toolbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 18px;
-  margin-bottom: 27px;
-}
-
-.filters {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.filter-btn {
-  border: 1px solid var(--border);
-  background: transparent;
-  color: var(--muted);
-  padding: 9px 13px;
-  font: 10px var(--mono);
-  text-transform: uppercase;
-}
-
-.filter-btn.active,
-.filter-btn:hover {
-  background: var(--lime);
-  border-color: var(--lime);
-  color: #10130b;
-}
-
-.project-card {
-  background: var(--panel);
-  border: 1px solid var(--border);
-  overflow: hidden;
-  transition: .3s;
-}
-
-.project-card:hover {
-  border-color: rgba(200,255,53,.6);
-  transform: translateY(-5px);
-}
-
-.project-art {
-  min-height: 190px;
-  display: grid;
-  place-items: center;
-  position: relative;
-  overflow: hidden;
-  background:
-    radial-gradient(circle at 50% 50%, rgba(200,255,53,.15), transparent 55%),
-    #171c18;
-  border-bottom: 1px solid var(--border);
-}
-
-.project-art .symbol {
-  font-size: 65px;
-  filter: drop-shadow(0 0 20px rgba(200,255,53,.2));
-  transition: transform .4s;
-}
-
-.project-card:hover .symbol {
-  transform: scale(1.15) rotate(-5deg);
-}
-
-.project-art .art-label {
-  position: absolute;
-  bottom: 12px;
-  left: 15px;
-  color: var(--lime);
-  font: 10px var(--mono);
-}
-
-.project-content {
-  padding: 23px;
-}
-
-.project-content h3 {
-  font: 700 25px var(--display);
-  text-transform: uppercase;
-  line-height: 1.1;
-  margin: 13px 0;
-}
-
-.project-content p {
-  color: var(--muted);
-  font-size: 12px;
-  line-height: 1.8;
-}
-
-.project-meta {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-  padding-top: 17px;
-  margin-top: 18px;
-  border-top: 1px solid var(--border);
-  color: var(--muted);
-  font: 9px var(--mono);
-}
-
-.no-results {
-  display: none;
-  padding: 35px;
-  border: 1px dashed var(--border);
-  color: var(--muted);
-  text-align: center;
-  grid-column: 1 / -1;
-}
-
-.hardware-layout {
-  display: grid;
-  grid-template-columns: .85fr 1.15fr;
-  gap: 50px;
-  align-items: start;
-}
-
-.hardware-intro {
-  position: sticky;
-  top: 110px;
-}
-
-.hardware-intro h2 {
-  font: 900 clamp(45px, 6vw, 75px)/.9 var(--display);
-  text-transform: uppercase;
-  margin: 20px 0;
-}
-
-.hardware-intro p {
-  color: var(--muted);
-  font-size: 13px;
-  line-height: 2;
-  margin-bottom: 25px;
-}
-
-.hardware-list {
-  display: grid;
-  gap: 12px;
-}
-
-.hardware-item {
-  display: grid;
-  grid-template-columns: 75px 1fr auto;
-  align-items: center;
-  gap: 18px;
-  padding: 18px;
-  background: var(--panel);
-  border: 1px solid var(--border);
-  transition: .25s;
-}
-
-.hardware-item:hover {
-  border-color: var(--lime);
-}
-
-.hardware-icon {
-  width: 75px;
-  height: 75px;
-  background: #1a211b;
-  display: grid;
-  place-items: center;
-  font-size: 31px;
-}
-
-.hardware-item h3 {
-  font: 700 21px var(--display);
-  text-transform: uppercase;
-}
-
-.hardware-item p {
-  font-size: 11px;
-  color: var(--muted);
-  margin-top: 5px;
-}
-
-.hardware-arrow {
-  color: var(--lime);
-  font-size: 20px;
-}
-
-.workflow {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  border: 1px solid var(--border);
-}
-
-.workflow-step {
-  padding: 25px;
-  border-right: 1px solid var(--border);
-  min-height: 205px;
-}
-
-.workflow-step:last-child {
-  border-right: 0;
-}
-
-.workflow-step .step {
-  font: 12px var(--mono);
-  color: var(--lime);
-}
-
-.workflow-step h3 {
-  font: 700 24px var(--display);
-  text-transform: uppercase;
-  margin: 25px 0 10px;
-}
-
-.workflow-step p {
-  color: var(--muted);
-  font-size: 12px;
-  line-height: 1.8;
-}
-
-.terminal {
-  background: #080a09;
-  border: 1px solid #303a30;
-  box-shadow: 0 20px 80px rgba(0,0,0,.25);
-  overflow: hidden;
-}
-
-.terminal-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  padding: 14px 18px;
-  border-bottom: 1px solid #283029;
-  color: var(--muted);
-  font: 10px var(--mono);
-}
-
-.terminal-dots {
-  display: flex;
-  gap: 6px;
-}
-
-.terminal-dots i {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #ff6258;
-}
-
-.terminal-dots i:nth-child(2) {
-  background: #ffbd44;
-}
-
-.terminal-dots i:nth-child(3) {
-  background: var(--lime);
-}
-
-.terminal pre {
-  padding: 25px;
-  overflow-x: auto;
-  color: #d5e5d1;
-  font: 12px/2 var(--mono);
-  white-space: pre;
-}
-
-.code-green { color: var(--lime); }
-.code-cyan { color: var(--cyan); }
-.code-muted { color: #6c796e; }
-
-.copy-code {
-  padding: 7px 11px;
-  background: transparent;
-  border: 1px solid var(--border);
-  color: var(--lime);
-  font: 10px var(--mono);
-}
-
-.copy-code:hover {
-  background: rgba(200,255,53,.1);
-}
-
-.article-grid {
-  display: grid;
-  grid-template-columns: 1.25fr 1fr 1fr;
-  gap: 18px;
-}
-
-.article-card {
-  display: flex;
-  flex-direction: column;
-  min-height: 300px;
-  background: var(--panel);
-  border: 1px solid var(--border);
-  padding: 25px;
-  transition: .3s;
-}
-
-.article-card:hover {
-  border-color: var(--lime);
-}
-
-.article-card:first-child {
-  background:
-    radial-gradient(ellipse at top right, rgba(200,255,53,.1), transparent 65%),
-    var(--panel);
-}
-
-.article-card .article-icon {
-  font-size: 35px;
-  margin: 20px 0;
-}
-
-.article-card h3 {
-  font: 700 27px/1.1 var(--display);
-  text-transform: uppercase;
-  margin-bottom: 12px;
-}
-
-.article-card p {
-  font-size: 12px;
-  color: var(--muted);
-  line-height: 1.9;
-}
-
-.article-card .card-link {
-  margin-top: auto;
-  padding-top: 22px;
-}
-
-.status-panel {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 35px;
-  padding: 35px;
-  border: 1px solid var(--border);
-  background:
-    radial-gradient(ellipse at 90% 0%, rgba(85,245,224,.06), transparent 50%),
-    var(--panel);
-}
-
-.status-panel h3 {
-  font: 700 30px var(--display);
-  text-transform: uppercase;
-  margin: 15px 0;
-}
-
-.status-panel p {
-  color: var(--muted);
-  font-size: 12px;
-  line-height: 1.9;
-}
-
-.status-list {
-  display: grid;
-  gap: 12px;
-}
-
-.status-row {
-  display: flex;
-  justify-content: space-between;
-  gap: 15px;
-  padding-bottom: 12px;
-  border-bottom: 1px solid var(--border);
-  font: 10px var(--mono);
-}
-
-.status-row span:last-child {
-  color: var(--cyan);
-}
-
-.cta {
-  padding: 65px 35px;
-  background: var(--lime);
-  color: #10130b;
-  position: relative;
-  overflow: hidden;
-}
-
-.cta::after {
-  content: "P4";
-  position: absolute;
-  right: 15px;
-  bottom: -105px;
-  font: 900 300px/.9 var(--display);
-  color: rgba(16,19,11,.06);
-  pointer-events: none;
-}
-
-.cta h2 {
-  max-width: 750px;
-  font: 900 clamp(45px, 7vw, 85px)/.9 var(--display);
-  text-transform: uppercase;
-  margin: 18px 0;
-}
-
-.cta p {
-  max-width: 510px;
-  font-size: 13px;
-  margin-bottom: 25px;
-  color: #374126;
-}
-
-.cta .button {
-  background: #10130b;
-  color: var(--lime);
-  border-color: #10130b;
-  position: relative;
-  z-index: 1;
-}
-
-footer {
-  padding: 55px 0 25px;
-  border-top: 1px solid var(--border);
-}
-
-.footer-main {
-  display: grid;
-  grid-template-columns: 1.4fr 1fr 1fr;
-  gap: 35px;
-  padding-bottom: 40px;
-}
-
-.footer-brand p {
-  max-width: 300px;
-  color: var(--muted);
-  font-size: 12px;
-  line-height: 1.9;
-  margin-top: 18px;
-}
-
-.footer-col h4 {
-  font: 11px var(--mono);
-  text-transform: uppercase;
-  color: var(--lime);
-  margin-bottom: 18px;
-}
-
-.footer-col a {
-  display: block;
-  color: var(--muted);
-  font-size: 12px;
-  margin: 11px 0;
-}
-
-.footer-col a:hover {
-  color: var(--lime);
-}
-
-.footer-bottom {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-  padding-top: 20px;
-  border-top: 1px solid var(--border);
-  color: var(--muted);
-  font: 9px var(--mono);
-  text-transform: uppercase;
-}
-
-.back-top {
-  position: fixed;
-  right: 22px;
-  bottom: 22px;
-  z-index: 90;
-  width: 43px;
-  height: 43px;
-  background: var(--lime);
-  color: #10130b;
-  border: 0;
-  font-size: 20px;
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(10px);
-  transition: .25s;
-}
-
-.back-top.visible {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
-}
-
-.reveal {
-  opacity: 0;
-  transform: translateY(22px);
-  transition: opacity .65s ease, transform .65s ease;
-}
-
-.reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.toast {
-  position: fixed;
-  left: 50%;
-  bottom: 25px;
-  z-index: 200;
-  padding: 12px 20px;
-  background: var(--lime);
-  color: #10130b;
-  font: 11px var(--mono);
-  transform: translate(-50%, 20px);
-  opacity: 0;
-  pointer-events: none;
-  transition: .25s;
-}
-
-.toast.show {
-  transform: translate(-50%, 0);
-  opacity: 1;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    scroll-behavior: auto !important;
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-}
-</style>,
-    <article class="project-card reveal"
-        data-category="display"
-        data-search="instrument oscilloscope serial monitor diagnostic waveform display">
-        <div class="project-art">
-          <span class="symbol">〽</span>
-          <span class="art-label">PROJECT / 004</span>
-        </div>
-        <div class="project-content">
-          <span class="tag">INSTRUMENTATION</span>
-          <h3>Serial Signal Lab</h3>
-          <p>
-            Build a serial-data monitor with scrolling measurements,
-            diagnostic messages, and a graphical representation of
-            incoming sensor data.
-          </p>
-          <div class="project-meta">
-            <span>DIFFICULTY: MEDIUM</span>
-            <span>UART / DISPLAY</span>
-          </div>
-        </div>
-      </article>
-
-      <article class="project-card reveal"
-        data-category="advanced"
-        data-search="multicore processor coprocessor rp2040 esp32 p4 distributed embedded system">
-        <div class="project-art">
-          <span class="symbol">⌬</span>
-          <span class="art-label">PROJECT / 005</span>
-        </div>
-        <div class="project-content">
-          <span class="tag hot">MULTI-BOARD</span>
-          <h3>Dual-Brain System</h3>
-          <p>
-            Explore a two-controller architecture in which the P4
-            handles a rich interface while a compatible auxiliary
-            microcontroller manages selected real-time tasks.
-          </p>
-          <div class="project-meta">
-            <span>DIFFICULTY: ADVANCED</span>
-            <span>UART / SPI</span>
-          </div>
-        </div>
-      </article>
-
-      <article class="project-card reveal"
-        data-category="advanced"
-        data-search="embedded operating system system monitor performance diagnostics memory">
-        <div class="project-art">
-          <span class="symbol">⟁</span>
-          <span class="art-label">PROJECT / 006</span>
-        </div>
-        <div class="project-content">
-          <span class="tag">SYSTEM TOOLS</span>
-          <h3>Embedded System Monitor</h3>
-          <p>
-            Create a diagnostic interface showing application state,
-            task information, communication activity, and available
-            system performance metrics.
-          </p>
-          <div class="project-meta">
-            <span>DIFFICULTY: ADVANCED</span>
-            <span>FIRMWARE / UI</span>
-          </div>
-        </div>
-      </article>
-
-      <div class="no-results" id="noResults">
-        NO MATCHES FOUND. TRY A DIFFERENT SEARCH OR FILTER.
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- HARDWARE COLLECTION -->
-
-<section id="hardware">
-  <div class="container hardware-layout">
-
-    <div class="hardware-intro reveal">
-      <div class="eyebrow">03 / HARDWARE BENCH</div>
-      <h2>THE PARTS.<br>THE POWER.<br><span class="lime">THE BUILD.</span></h2>
-
-      <p>
-        Your hardware collection is the foundation of P4 LAB.
-        Each component can play a different role in a larger
-        embedded system. Check interface compatibility, voltage
-        requirements, and supported software before connecting modules.
-      </p>
-
-      <a class="button" href="#workflow">Explore Architecture ↗</a>
-    </div>
-
-    <div class="hardware-list">
-
-      <a class="hardware-item reveal"
-        href="https://robu.in/product/waveshare-esp32-p4-pico-development-board/"
-        target="_blank" rel="noopener noreferrer">
-        <div class="hardware-icon">▦</div>
-        <div>
-          <span class="tag hot">MAIN PLATFORM</span>
-          <h3>Waveshare ESP32-P4 Pico</h3>
-          <p>Primary embedded processing and interface experiments.</p>
-        </div>
-        <span class="hardware-arrow">↗</span>
-      </a>
-
-      <a class="hardware-item reveal"
-        href="https://robu.in/product/dwin-dmg48270c043_05wtc-4-3-inch-480x272-ttl-rs232-hmi-lcd-display-capacitive-touch-8mb-flash-buzzer-sd-interface/"
-        target="_blank" rel="noopener noreferrer">
-        <div class="hardware-icon">▣</div>
-        <div>
-          <span class="tag">TOUCH DISPLAY</span>
-          <h3>DWIN 4.3-inch HMI</h3>
-          <p>UART-based graphical interface and touchscreen concepts.</p>
-        </div>
-        <span class="hardware-arrow">↗</span>
-      </a>
-
-      <a class="hardware-item reveal"
-        href="https://robu.in/product/3-5-inch-ili9486-tft-touch-shield-lcd-module-480x320-for-arduino-uno/"
-        target="_blank" rel="noopener noreferrer">
-        <div class="hardware-icon">▤</div>
-        <div>
-          <span class="tag">TFT DISPLAY</span>
-          <h3>ILI9486 3.5-inch TFT</h3>
-          <p>Display experiments subject to controller and bus compatibility.</p>
-        </div>
-        <span class="hardware-arrow">↗</span>
-      </a>
-
-      <a class="hardware-item reveal"
-        href="https://robu.in/product/dwin-dmg80480c043_01wtc-4-3inch-480x800-ips-industrial-hmi-uart-ttl-lcd-display-capacitive-touch-16mb-flash-buzzer-sd-interface/"
-        target="_blank" rel="noopener noreferrer">
-        <div class="hardware-icon">▧</div>
-        <div>
-          <span class="tag">IPS / HMI</span>
-          <h3>DWIN 4.3-inch IPS HMI</h3>
-          <p>High-resolution interface concepts and device control.</p>
-        </div>
-        <span class="hardware-arrow">↗</span>
-      </a>
-
-      <a class="hardware-item reveal"
-        href="https://robu.in/product/raspberry-pi-camera-module/"
-        target="_blank" rel="noopener noreferrer">
-        <div class="hardware-icon">◉</div>
-        <div>
-          <span class="tag">VISION</span>
-          <h3>Raspberry Pi Camera Module</h3>
-          <p>Camera experiments after verifying interface compatibility.</p>
-        </div>
-        <span class="hardware-arrow">↗</span>
-      </a>
-
-      <a class="hardware-item reveal"
-        href="https://robu.in/product/waveshare-rp2040-pizero-development-board-based-on-the-raspberry-pi-rp2040-dual-core-processor-264kb-sram-and-16mb-onboard-flash-memory/"
-        target="_blank" rel="noopener noreferrer">
-        <div class="hardware-icon">⌘</div>
-        <div>
-          <span class="tag">AUXILIARY MCU</span>
-          <h3>Waveshare RP2040 PiZero</h3>
-          <p>A possible secondary controller for selected tasks.</p>
-        </div>
-        <span class="hardware-arrow">↗</span>
-      </a>
-
-      <a class="hardware-item reveal"
-        href="https://robu.in/product/adafruit-feather-rp2040/"
-        target="_blank" rel="noopener noreferrer">
-        <div class="hardware-icon">⌬</div>
-        <div>
-          <span class="tag">PROTOTYPING</span>
-          <h3>Adafruit Feather RP2040</h3>
-          <p>Independent experiments and peripheral prototyping.</p>
-        </div>
-        <span class="hardware-arrow">↗</span>
-      </a>
-
-      <a class="hardware-item reveal"
-        href="https://robu.in/product/230m-p-n-b-30-1000-insulated-pvc-coated-30awg-wire-wrapping-wire-red/"
-        target="_blank" rel="noopener noreferrer">
-        <div class="hardware-icon">⌁</div>
-        <div>
-          <span class="tag">CONNECTIONS</span>
-          <h3>30 AWG Wire</h3>
-          <p>Prototyping, signal routing, and low-current connections.</p>
-        </div>
-        <span class="hardware-arrow">↗</span>
-      </a>
-
-    </div>
-  </div>
-</section>
-
-<!-- ARCHITECTURE -->
-
-<section id="workflow">
-  <div class="container">
-
-    <div class="section-heading reveal">
-      <div>
-        <div class="eyebrow">04 / SYSTEM ARCHITECTURE</div>
-        <h2>ONE SYSTEM.<br><span class="lime">MANY BRAINS.</span></h2>
-      </div>
-      <p>
-        Build modularly. Give each board a clear job, establish
-        communication between components, and test each layer
-        before combining the entire system.
-      </p>
-    </div>
-
-    <div class="workflow reveal">
-
-      <article class="workflow-step">
-        <span class="step">STAGE / 01</span>
-        <h3>Process</h3>
-        <p>
-          Use the ESP32-P4 for supported application logic,
-          interface processing, and system coordination.
-        </p>
-      </article>
-
-      <article class="workflow-step">
-        <span class="step">STAGE / 02</span>
-        <h3>Display</h3>
-        <p>
-          Select an HMI or TFT module and implement its supported
-          communication and rendering workflow.
-        </p>
-      </article>
-
-      <article class="workflow-step">
-        <span class="step">STAGE / 03</span>
-        <h3>Communicate</h3>
-        <p>
-          Connect compatible peripherals through UART, SPI, I2C,
-          or other supported interfaces.
-        </p>
-      </article>
-
-      <article class="workflow-step">
-        <span class="step">STAGE / 04</span>
-        <h3>Validate</h3>
-        <p>
-          Test timing, memory use, data flow, power consumption,
-          and failure recovery before deployment.
-        </p>
-      </article>
-
-    </div>
-
-    <div style="height:25px"></div>
-
-    <div class="terminal reveal">
-      <div class="terminal-head">
-        <div style="display:flex;align-items:center;gap:12px">
-          <span class="terminal-dots">
-            <i></i><i></i><i></i>
-          </span>
-          <span>p4_lab / architecture.c</span>
-        </div>
-        <button class="copy-code" id="copyCode">COPY EXAMPLE</button>
-      </div>
-
-      <pre id="codeExample"><span class="code-muted">// Conceptual system architecture — not a complete firmware</span>
-
-<span class="code-green">#define</span> MAIN_CONTROLLER  <span class="code-cyan">"ESP32-P4"</span>
-<span class="code-green">#define</span> DISPLAY_LINK     <span class="code-cyan">"UART or supported display bus"</span>
-<span class="code-green">#define</span> AUX_CONTROLLER   <span class="code-cyan">"RP2040 (optional)"</span>
-
-<span class="code-green">void</span> setup_lab(void) {
-    initialize_main_controller();
-    configure_display_interface();
-    initialize_application_state();
-}
-
-<span class="code-green">void</span> loop_lab(void) {
-    read_available_inputs();
-    update_application_logic();
-    refresh_user_interface();
-    report_diagnostics();
-}</pre>
-    </div>
-
-    <p class="mono" style="color:var(--muted);margin-top:14px">
-      NOTE: THE CODE ABOVE IS PSEUDOCODE. IMPLEMENT EACH FUNCTION
-      USING YOUR SELECTED SDK AND VERIFIED HARDWARE INTERFACES.
-    </p>
-
-  </div>
-</section>
-
-<!-- LEARNING ZONE -->
-
-<section id="learn">
-  <div class="container">
-
-    <div class="section-heading reveal">
-      <div>
-        <div class="eyebrow">05 / KNOWLEDGE BASE</div>
-        <h2>LEARN IT.<br>BUILD IT.</h2>
-      </div>
-      <p>
-        Turn your experiments into reusable knowledge. Document
-        every circuit, firmware update, display integration, and
-        hardware test. P4 LAB is where ideas become practical
-        engineering projects.
-      </p>
-    </div>
-
-    <div class="article-grid">
-
-      <article class="article-card reveal">
-        <span class="tag hot">GUIDE / 001</span>
-        <div class="article-icon">▦</div>
-        <h3>ESP32-P4: Getting Started</h3>
-        <p>
-          Set up ESP-IDF, configure your development environment,
-          understand the board architecture, and run your first
-          firmware application.
-        </p>
-        <a class="card-link"
-           href="https://docs.espressif.com/projects/esp-idf/en/stable/esp32p4/"
-           target="_blank" rel="noopener noreferrer">
-          Read documentation ↗
-        </a>
-      </article>
-
-      <article class="article-card reveal">
-        <span class="tag">GUIDE / 002</span>
-        <div class="article-icon">▣</div>
-        <h3>Building Touch Interfaces</h3>
-        <p>
-          Explore screen layouts, graphical widgets, touch input,
-          display communication, and interface design for embedded
-          devices.
-        </p>
-        <a class="card-link"
-           href="https://docs.lvgl.io/"
-           target="_blank" rel="noopener noreferrer">
-          Explore LVGL ↗
-        </a>
-      </article>
-
-      <article class="article-card reveal">
-        <span class="tag">GUIDE / 003</span>
-        <div class="article-icon">⌘</div>
-        <h3>Multi-Controller Design</h3>
-        <p>
-          Learn how a main processor and an auxiliary microcontroller
-          can exchange commands, measurements, and device status.
-        </p>
-        <a class="card-link" href="#workflow">
-          Explore architecture ↗
-        </a>
-      </article>
-
-    </div>
-  </div>
-</section>
-
-<!-- SECTION 06: LAB CHECKLIST -->
-
-<section id="lab-status">
-  <div class="container">
-
-    <div class="section-heading reveal">
-      <div>
-        <div class="eyebrow">06 / ENGINEERING CHECKLIST</div>
-        <h2>TEST BEFORE<br><span class="lime">YOU POWER.</span></h2>
-      </div>
-
-      <p>
-        Use this checklist before connecting new components.
-        These items are reminders, not live hardware readings.
-      </p>
-    </div>
-
-    <div class="status-panel reveal">
-
-      <div>
-        <span class="eyebrow">PROJECT WORKBENCH</span>
-        <h3>Build Safely.<br>Debug Smarter.</h3>
-
-        <p>
-          A reliable embedded project begins with verified
-          connections, compatible components, and a clear testing
-          procedure. Check each item before powering your circuit.
-        </p>
-
-        <div style="margin-top:24px">
-          <span class="tag hot">PRE-POWER INSPECTION</span>
-        </div>
-      </div>
-
-      <div class="status-list" id="checklist">
-
-        <label class="status-row">
-          <span>Power supply verified</span>
-          <input type="checkbox" class="lab-check">
-        </label>
-
-        <label class="status-row">
-          <span>Logic voltage compatibility checked</span>
-          <input type="checkbox" class="lab-check">
-        </label>
-
-        <label class="status-row">
-          <span>Pinout and wiring confirmed</span>
-          <input type="checkbox" class="lab-check">
-        </label>
-
-        <label class="status-row">
-          <span>Display protocol identified</span>
-          <input type="checkbox" class="lab-check">
-        </label>
-
-        <label class="status-row">
-          <span>Firmware configuration reviewed</span>
-          <input type="checkbox" class="lab-check">
-        </label>
-
-        <label class="status-row">
-          <span>Connections inspected</span>
-          <input type="checkbox" class="lab-check">
-        </label>
-
-        <div class="mono" id="checkProgress"
-             style="color:var(--lime);padding-top:10px">
-          0 / 6 CHECKS COMPLETED
-        </div>
-
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- SECTION 07: PROJECT ROADMAP -->
-
-<section id="roadmap">
-  <div class="container">
-
-    <div class="section-heading reveal">
-      <div>
-        <div class="eyebrow">07 / DEVELOPMENT ROADMAP</div>
-        <h2>FROM FIRST<br>BOOT TO <span class="lime">BIG IDEAS.</span></h2>
-      </div>
-
-      <p>
-        Build in stages. Get the fundamentals working first,
-        then introduce more demanding interfaces and peripherals.
-      </p>
-    </div>
-
-    <div class="card-grid">
-
-      <article class="feature-card reveal">
-        <div class="card-top">
-          <span class="section-number">PHASE 01</span>
-          <span class="tag">FOUNDATION</span>
-        </div>
-
-        <h3>Bring Up The Board</h3>
-        <p>
-          Configure the toolchain, flash a basic application,
-          inspect logs, and verify the development board works.
-        </p>
-
-        <a class="card-link" href="#code-lab">
-          Start with firmware ↗
-        </a>
-      </article>
-
-      <article class="feature-card reveal">
-        <div class="card-top">
-          <span class="section-number">PHASE 02</span>
-          <span class="tag">INTEGRATION</span>
-        </div>
-
-        <h3>Build The Interface</h3>
-        <p>
-          Choose a compatible display, implement communication,
-          create useful screens, and validate touch interactions.
-        </p>
-
-        <a class="card-link" href="#hardware">
-          Review hardware ↗
-        </a>
-      </article>
-
-      <article class="feature-card reveal">
-        <div class="card-top">
-          <span class="section-number">PHASE 03</span>
-          <span class="tag hot">ADVANCED</span>
-        </div>
-
-        <h3>Expand The System</h3>
-        <p>
-          Investigate camera processing, companion controllers,
-          custom diagnostic tools, and more ambitious applications.
-        </p>
-
-        <a class="card-link" href="#projects">
-          Explore project ideas ↗
-        </a>
-      </article>
-
-    </div>
-  </div>
-</section>
-
-<!-- SECTION 08: NEWSLETTER-STYLE PROJECT SUBMISSION -->
-
-<section id="ideas">
-  <div class="container">
-
-    <div class="section-heading reveal">
-      <div>
-        <div class="eyebrow">08 / IDEA GENERATOR</div>
-        <h2>WHAT SHOULD<br>WE <span class="lime">BUILD?</span></h2>
-      </div>
-
-      <p>
-        Select an area of interest and generate a starting concept
-        for your next P4 LAB experiment.
-      </p>
-    </div>
-
-    <div class="status-panel reveal">
-
-      <div>
-        <span class="eyebrow">PROJECT CONCEPT TOOL</span>
-        <h3>Your Next<br>Experiment.</h3>
-
-        <p>
-          This local tool generates project suggestions based on
-          your selected interest. It does not require an account
-          or send your selections to a server.
-        </p>
-      </div>
-
-      <div>
-        <label for="ideaCategory" class="mono"
-               style="display:block;margin-bottom:10px">
-          SELECT A CATEGORY
-        </label>
-
-        <select id="ideaCategory"
-                style="width:100%;padding:14px;background:var(--bg);
-                color:var(--text);border:1px solid var(--border);
-                margin-bottom:18px">
-          <option value="display">Display & HMI</option>
-          <option value="vision">Camera & Vision</option>
-          <option value="automation">Automation & Control</option>
-          <option value="multiboard">Multi-controller Systems</option>
-          <option value="instrument">Electronic Instruments</option>
-        </select>
-
-        <button class="button" id="generateIdea" type="button">
-          Generate Project ↗
-        </button>
-
-        <div id="ideaResult"
-             style="display:none;margin-top:25px;padding:22px;
-             background:var(--bg);border:1px solid var(--border)">
-          <span class="eyebrow">GENERATED CONCEPT</span>
-          <h3 id="ideaTitle"
-              style="font:700 27px var(--display);margin:15px 0">
-          </h3>
-          <p id="ideaDescription"
-             style="font-size:12px;color:var(--muted);line-height:1.9">
-          </p>
-          <a href="#hardware" class="card-link">
-            Review your components ↗
-          </a>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- SECTION 09: CALL TO ACTION -->
-
-<section id="contact">
-  <div class="container">
-
-    <div class="cta reveal">
-      <div class="mono">P4 LAB / BUILD BEYOND LIMITS</div>
-
-      <h2>STOP SCROLLING.<br>START BUILDING.</h2>
-
-      <p>
-        Every great hardware project starts with one experiment.
-        Test your idea, document the result, and use what you learn
-        to create something even better.
-      </p>
-
-      <a href="#projects" class="button">
-        Explore The Projects ↗
-      </a>
-    </div>
-
-  </div>
-</section>
-
-</main>
-
-<!-- FOOTER -->
-
-<footer>
-  <div class="container">
-
-    <div class="footer-main">
-
-      <div class="footer-brand">
-        <a href="#home" class="logo">
+      margin-bottom: 35px;
+    }
+
+    .section-heading h2 {
+      margin-top: 15px;
+      font: 900 clamp(42px, 6vw, 72px)/0.95 var(--display);
+      text-transform: uppercase;
+      letter-spacing: -1px;
+    }
+
+    .section-heading p {
+      max-width: 390px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .section-number {
+      color: var(--lime);
+      font: 12px var(--mono);
+      margin-bottom: 12px;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .feature-card,
+    .project-card,
+    .step-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      padding: 25px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+
+    .feature-card:hover,
+    .project-card:hover,
+    .step-card:hover {
+      border-color: var(--lime);
+      transform: translateY(-6px);
+    }
+
+    .card-icon {
+      width: 50px;
+      height: 50px;
+      display: grid;
+      place-items: center;
+      background: rgba(200,255,53,0.09);
+      color: var(--lime);
+      font-size: 24px;
+      margin-bottom: 23px;
+    }
+
+    .feature-card h3,
+    .project-card h3,
+    .step-card h3 {
+      font: 700 25px var(--display);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .feature-card p,
+    .project-card p,
+    .step-card p {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.9;
+    }
+
+    .card-link {
+      display: inline-flex;
+      gap: 8px;
+      margin-top: 22px;
+      color: var(--lime);
+      font: 10px var(--mono);
+      text-transform: uppercase;
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 23px;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 6px 10px;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font: 9px var(--mono);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .project-card {
+      min-height: 260px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .project-image {
+      height: 130px;
+      background: linear-gradient(135deg, rgba(200,255,53,0.18), rgba(85,245,224,0.06));
+      border: 1px solid var(--border);
+      display: grid;
+      place-items: center;
+      margin-bottom: 18px;
+      color: var(--lime);
+      font: 700 32px var(--display);
+    }
+
+    .meta-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .meta-row span {
+      color: var(--muted);
+      font: 9px var(--mono);
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+    }
+
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .step-number {
+      display: inline-block;
+      margin-bottom: 18px;
+      color: var(--lime);
+      font: 800 12px var(--mono);
+      letter-spacing: 2px;
+    }
+
+    .cta-band {
+      margin-top: 12px;
+      padding: 32px;
+      background: linear-gradient(135deg, rgba(200,255,53,0.1), rgba(85,245,224,0.05));
+      border: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .cta-band h3 {
+      font: 900 32px/1 var(--display);
+      letter-spacing: -0.8px;
+      text-transform: uppercase;
+    }
+
+    .cta-band p {
+      color: var(--muted);
+      max-width: 540px;
+      font-size: 13px;
+    }
+
+    footer {
+      padding: 42px 0 80px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .project-grid,
+      .card-grid,
+      .process-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .menu-toggle {
+        display: grid;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .container {
+        width: min(var(--width), calc(100% - 24px));
+      }
+
+      .project-grid,
+      .card-grid,
+      .process-grid {
+        grid-template-columns: 1fr;
+      }
+
+      nav {
+        height: auto;
+        padding: 18px 0;
+      }
+
+      .logo {
+        font-size: 20px;
+      }
+
+      .section-heading {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .cta-band {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="nav-wrap">
+    <div class="container">
+      <nav aria-label="Main navigation">
+        <a href="#top" class="logo" aria-label="P4 Lab home">
           <span class="logo-mark">P4</span>
           <span>
             P4 LAB
-            <small>BUILD BEYOND LIMITS</small>
+            <small>Build Beyond Limits</small>
           </span>
         </a>
 
-        <p>
-          An independent embedded systems blog exploring the
-          ESP32-P4, touch interfaces, camera experiments, firmware,
-          electronics, and creative hardware engineering.
-        </p>
-      </div>
+        <div class="nav-links" aria-label="Primary navigation">
+          <a href="#about">About</a>
+          <a href="#projects">Projects</a>
+          <a href="#stack">Stack</a>
+          <a href="#process">Process</a>
+          <a href="#contact">Contact</a>
+        </div>
 
-      <div class="footer-col">
-        <h4>EXPLORE</h4>
-        <a href="#capabilities">Capabilities</a>
-        <a href="#projects">Projects</a>
-        <a href="#hardware">Hardware Bench</a>
-        <a href="#roadmap">Roadmap</a>
-      </div>
-
-      <div class="footer-col">
-        <h4>DEVELOPER RESOURCES</h4>
-        <a href="https://docs.espressif.com/"
-           target="_blank" rel="noopener noreferrer">
-          Espressif Documentation ↗
-        </a>
-        <a href="https://docs.lvgl.io/"
-           target="_blank" rel="noopener noreferrer">
-          LVGL Documentation ↗
-        </a>
-        <a href="https://robu.in/"
-           target="_blank" rel="noopener noreferrer">
-          Robu.in Components ↗
-        </a>
-        <a href="#home">Back To Home ↑</a>
-      </div>
-
+        <div class="nav-actions">
+          <button class="search-toggle" type="button" aria-label="Open search">⌕</button>
+          <button class="button button-outline" type="button">Request a build</button>
+          <button class="menu-toggle" type="button" aria-label="Open menu">☰</button>
+        </div>
+      </nav>
     </div>
 
-    <div class="footer-bottom">
-      <span>© <span id="currentYear"></span> P4 LAB</span>
-      <span>ENGINEERED BY CURIOSITY.</span>
+    <div class="container search-panel" id="searchPanel">
+      <input id="global-search" type="search" placeholder="Search projects, modules, systems..." aria-label="Search projects" />
     </div>
-
   </div>
-</footer>
 
-<button class="back-top" id="backTop"
-        type="button" aria-label="Back to top">
-  ↑
-</button>
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <span class="eyebrow">P4 Labs / Embedded Systems</span>
+          <h1>
+            Build <span class="stroke">Beyond</span>
+            <span class="accent">Limits</span>
+          </h1>
+          <p class="hero-copy">
+            Explore ESP32-P4 experiments, human-machine interfaces, embedded prototypes,
+            electronics builds, and maker workflows engineered for speed, clarity, and real-world testing.
+          </p>
 
-<div class="toast" id="toast"
-     role="status" aria-live="polite">
-</div>
+          <div class="hero-buttons">
+            <a class="button" href="#projects">Explore builds</a>
+            <a class="button button-outline" href="#about">Learn the lab</a>
+          </div>
 
-<!-- JAVASCRIPT -->
+          <div class="hero-meta" aria-label="Project highlights">
+            <div>
+              <strong>32+</strong>
+              <span>experiments</span>
+            </div>
+            <div>
+              <strong>12</strong>
+              <span>active modules</span>
+            </div>
+            <div>
+              <strong>4.8/5</strong>
+              <span>prototype rating</span>
+            </div>
+          </div>
+        </div>
 
-<script>
-(() => {
-  "use strict";
+        <div class="hero-visual" aria-label="Lab system illustration">
+          <div class="float-label float-a">
+            HMI CORE
+            <b>ESP32-P4</b>
+          </div>
+          <div class="float-label float-b">
+            I/O GRID
+            <b>24 channels</b>
+          </div>
+          <div class="float-label float-c">
+            POWER
+            <b>5V stable</b>
+          </div>
+          <div class="chip-art">
+            <div class="chip-inner">
+              <div class="chip-symbol">P4</div>
+              <p>LAB SYSTEM</p>
+            </div>
+          </div>
+          <div class="scanline" aria-hidden="true"></div>
+        </div>
+      </div>
+    </section>
 
-  const $ = (selector, root = document) =>
-    root.querySelector(selector);
+    <div class="ticker" aria-label="Project updates">
+      <div class="ticker-track">
+        <span>ESP32-P4</span>
+        <span>HMI displays</span>
+        <span>embedded design</span>
+        <span>electronics prototyping</span>
+        <span>maker builds</span>
+        <span>PCB testing</span>
+        <span>sensor systems</span>
+        <span>control loops</span>
+        <span>ESP32-P4</span>
+        <span>HMI displays</span>
+        <span>embedded design</span>
+        <span>electronics prototyping</span>
+        <span>maker builds</span>
+        <span>PCB testing</span>
+        <span>sensor systems</span>
+        <span>control loops</span>
+      </div>
+    </div>
 
-  const $$ = (selector, root = document) =>
-    Array.from(root.querySelectorAll(selector));
+    <section id="about">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <div class="section-number">01 / Lab focus</div>
+            <h2>Built to test ideas fast.</h2>
+          </div>
+          <p>
+            We combine electronics, firmware, UI logic, and rapid iteration to turn rough concepts into working device experiences.
+          </p>
+        </div>
 
-  // FOOTER YEAR
+        <div class="card-grid">
+          <article class="feature-card">
+            <div class="card-icon">▣</div>
+            <h3>HMI Design</h3>
+            <p>High-contrast, responsive interfaces for touch devices and control dashboards built around real hardware constraints.</p>
+            <a class="card-link" href="#projects">View systems →</a>
+          </article>
 
-  $("#currentYear").textContent = new Date().getFullYear();
+          <article class="feature-card">
+            <div class="card-icon">◈</div>
+            <h3>Firmware</h3>
+            <p>Low-level control logic, task scheduling, GPIO management, and signal handling tuned for reliable embedded operation.</p>
+            <a class="card-link" href="#stack">Explore stack →</a>
+          </article>
 
-  // MOBILE NAVIGATION
+          <article class="feature-card">
+            <div class="card-icon">✦</div>
+            <h3>Prototyping</h3>
+            <p>Bench testing, wiring validation, and iteration loops that help pinpoint issues before a final board or enclosure is built.</p>
+            <a class="card-link" href="#process">See workflow →</a>
+          </article>
+        </div>
+      </div>
+    </section>
 
-  const menuToggle = $("#menuToggle");
-  const navLinks = $("#navLinks");
+    <section id="projects">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <div class="section-number">02 / Featured builds</div>
+            <h2>Current lab projects.</h2>
+          </div>
+          <p>
+            Each project is designed to test a user experience or embedded challenge in a compact, measurable form.
+          </p>
+        </div>
 
-  menuToggle.addEventListener("click", () => {
-    const isOpen = navLinks.classList.toggle("open");
+        <div class="project-grid">
+          <article class="project-card" data-keywords="esp32 p4 hmi dashboard touch display">
+            <div>
+              <div class="card-top">
+                <span class="tag">ESP32-P4</span>
+                <span class="mono lime">active</span>
+              </div>
+              <div class="project-image">P4</div>
+              <h3>Smart HMI Panel</h3>
+              <p>Touch-first operator dashboard with live system status, controls, data overlays, and responsive visual feedback.</p>
+            </div>
+            <div class="meta-row">
+              <span>UI + Firmware</span>
+              <span>Phase 3</span>
+            </div>
+          </article>
 
-    menuToggle.setAttribute("aria-expanded", String(isOpen));
-    menuToggle.textContent = isOpen ? "✕" : "☰";
-  });
+          <article class="project-card" data-keywords="sensor lab iot telemetry grid power">
+            <div>
+              <div class="card-top">
+                <span class="tag">Sensors</span>
+                <span class="mono lime">active</span>
+              </div>
+              <div class="project-image">S</div>
+              <h3>Sensor Array</h3>
+              <p>Multi-sensor monitoring stack for environmental readings, alerts, and compact data logging on embedded hardware.</p>
+            </div>
+            <div class="meta-row">
+              <span>Telemetry</span>
+              <span>Phase 2</span>
+            </div>
+          </article>
 
-  $$("#navLinks a").forEach(link => {
-    link.addEventListener("click", () => {
-      navLinks.classList.remove("open");
-      menuToggle.setAttribute("aria-expanded", "false");
-      menuToggle.textContent = "☰";
+          <article class="project-card" data-keywords="power electronics pcb testing control loop">
+            <div>
+              <div class="card-top">
+                <span class="tag">Power</span>
+                <span class="mono lime">prototype</span>
+              </div>
+              <div class="project-image">E</div>
+              <h3>Power Control Module</h3>
+              <p>Stable voltage control, switching logic, and watchdog behavior measured under real operating conditions.</p>
+            </div>
+            <div class="meta-row">
+              <span>Control</span>
+              <span>Phase 1</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="stack">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <div class="section-number">03 / Lab stack</div>
+            <h2>Tools used to build and test.</h2>
+          </div>
+          <p>
+            Reliable systems are built on simple decisions: strong interfaces, consistent signal flow, and focused iteration.
+          </p>
+        </div>
+
+        <div class="card-grid">
+          <article class="feature-card">
+            <div class="card-icon">01</div>
+            <h3>MCUs</h3>
+            <p>ESP32 families, module variants, and board pin mapping used to create flexible hardware experiments.</p>
+          </article>
+
+          <article class="feature-card">
+            <div class="card-icon">02</div>
+            <h3>Displays</h3>
+            <p>Human-machine interfaces, static panels, and adaptive screen states planned for fast visual resolution.</p>
+          </article>
+
+          <article class="feature-card">
+            <div class="card-icon">03</div>
+            <h3>Firmware</h3>
+            <p>Layered logic, event loops, and calibration routines built around predictable timing and diagnostics.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="process">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <div class="section-number">04 / Workflow</div>
+            <h2>How the lab moves.</h2>
+          </div>
+          <p>
+            Working prototypes are created through simple cycles: define, test, refine, repeat.
+          </p>
+        </div>
+
+        <div class="process-grid">
+          <article class="step-card">
+            <div class="step-number">01 / Design</div>
+            <h3>Define the goal</h3>
+            <p>Identify the interaction, electrical challenge, or data requirement before any hardware is connected.</p>
+          </article>
+
+          <article class="step-card">
+            <div class="step-number">02 / Build</div>
+            <h3>Prototype fast</h3>
+            <p>Wire up a working module and confirm whether the concept behaves as expected under live conditions.</p>
+          </article>
+
+          <article class="step-card">
+            <div class="step-number">03 / Iterate</div>
+            <h3>Refine and test</h3>
+            <p>Move from broken or unstable behavior to measurable improvements through repeated validation.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container">
+        <div class="cta-band">
+          <div>
+            <h3>Ready to build the next prototype?</h3>
+            <p>Bring your hardware challenge, interface idea, or electronics experiment and we’ll map it into a working lab workflow.</p>
+          </div>
+          <a class="button" href="mailto:hello@p4lab.example">Start a project</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <div>P4 LAB © 2026</div>
+      <div class="footer-links">
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const searchToggle = document.querySelector('.search-toggle');
+    const searchPanel = document.getElementById('searchPanel');
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    const searchInput = document.getElementById('global-search');
+    const projectCards = [...document.querySelectorAll('.project-card')];
+
+    searchToggle.addEventListener('click', () => {
+      searchPanel.classList.toggle('active');
+      searchInput.focus();
     });
-  });
 
-  // SEARCH PANEL
-
-  const searchToggle = $("#searchToggle");
-  const searchPanel = $("#searchPanel");
-  const siteSearch = $("#siteSearch");
-
-  searchToggle.addEventListener("click", () => {
-    const isOpen = searchPanel.classList.toggle("active");
-
-    searchToggle.setAttribute("aria-expanded", String(isOpen));
-
-    if (isOpen) {
-      siteSearch.focus();
-    } else {
-      siteSearch.value = "";
-      applyProjectFilters();
-    }
-  });
-
-  // PROJECT FILTERS AND SEARCH
-
-  const projectCards = $$(".project-card");
-  const filterButtons = $$(".filter-btn");
-  const projectCount = $("#projectCount");
-  const noResults = $("#noResults");
-
-  let activeFilter = "all";
-
-  function applyProjectFilters() {
-    const query = siteSearch.value.trim().toLowerCase();
-    let visibleCount = 0;
-
-    projectCards.forEach(card => {
-      const category = card.dataset.category || "";
-      const searchableText =
-        (card.dataset.search || "") + " " + card.textContent;
-
-      const matchesCategory =
-        activeFilter === "all" || category === activeFilter;
-
-      const matchesSearch =
-        query === "" ||
-        searchableText.toLowerCase().includes(query);
-
-      const visible = matchesCategory && matchesSearch;
-
-      card.hidden = !visible;
-
-      if (visible) visibleCount++;
+    menuToggle.addEventListener('click', () => {
+      navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+      navLinks.style.flexDirection = 'column';
+      navLinks.style.position = 'absolute';
+      navLinks.style.top = '80px';
+      navLinks.style.right = '24px';
+      navLinks.style.background = 'rgba(17, 20, 19, 0.95)';
+      navLinks.style.border = '1px solid var(--border)';
+      navLinks.style.padding = '18px';
+      navLinks.style.gap = '16px';
     });
 
-    projectCount.textContent =
-      String(visibleCount).padStart(2, "0") + " PROJECTS";
+    searchInput.addEventListener('input', () => {
+      const term = searchInput.value.trim().toLowerCase();
 
-    noResults.style.display =
-      visibleCount === 0 ? "block" : "none";
-  }
-
-  filterButtons.forEach(button => {
-    button.setAttribute(
-      "aria-pressed",
-      String(button.classList.contains("active"))
-    );
-
-    button.addEventListener("click", () => {
-      activeFilter = button.dataset.filter;
-
-      filterButtons.forEach(item => {
-        const selected = item === button;
-
-        item.classList.toggle("active", selected);
-        item.setAttribute("aria-pressed", String(selected));
+      projectCards.forEach((card) => {
+        const text = (card.dataset.keywords || '') + ' ' + card.textContent.toLowerCase();
+        const matches = !term || text.includes(term);
+        card.style.display = matches ? 'flex' : 'none';
       });
-
-      applyProjectFilters();
     });
-  });
-
-  siteSearch.addEventListener("input", applyProjectFilters);
-
-  // SCROLL REVEAL ANIMATIONS
-
-  const revealElements = $$(".reveal");
-
-  if ("IntersectionObserver" in window) {
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("visible");
-          observer.unobserve(entry.target);
-        }
-      });
-    }, {
-      threshold: 0.08
-    });
-
-    revealElements.forEach(element => observer.observe(element));
-  } else {
-    revealElements.forEach(element => {
-      element.classList.add("visible");
-    });
-  }
-
-  // BACK TO TOP
-
-  const backTop = $("#backTop");
-
-  function updateBackTop() {
-    backTop.classList.toggle("visible", window.scrollY > 450);
-  }
-
-  window.addEventListener("scroll", updateBackTop, {
-    passive: true
-  });
-
-  updateBackTop();
-
-  backTop.addEventListener("click", () => {
-    window.scrollTo({
-      top: 0,
-      behavior: window.matchMedia(
-        "(prefers-reduced-motion: reduce)"
-      ).matches ? "auto" : "smooth"
-    });
-  });
-
-  // TOAST NOTIFICATIONS
-
-  const toast = $("#toast");
-    let toastTimer;
-
-  function showToast(message) {
-    toast.textContent = message;
-    toast.classList.add("show");
-
-    clearTimeout(toastTimer);
-
-    toastTimer = setTimeout(() => {
-      toast.classList.remove("show");
-    }, 2200);
-  }
-
-  // CHECKLIST PROGRESS
-
-  const checklistItems = $$(".lab-check");
-  const checkProgress = $("#checkProgress");
-
-  function updateChecklist() {
-    const completed = checklistItems.filter(
-      checkbox => checkbox.checked
-    ).length;
-
-    checkProgress.textContent =
-      completed + " / " + checklistItems.length +
-      " CHECKS COMPLETED";
-  }
-
-  checklistItems.forEach(checkbox => {
-    checkbox.addEventListener("change", updateChecklist);
-  });
-
-  updateChecklist();
-
-  // PROJECT IDEA GENERATOR
-
-  const ideas = {
-    display: {
-      title: "Interactive HMI Command Center",
-      description:
-        "Create a touchscreen dashboard with menus, sensor " +
-        "readings, device settings, and custom controls. " +
-        "Verify display compatibility before connecting hardware."
-    },
-
-    vision: {
-      title: "Embedded Vision Monitor",
-      description:
-        "Explore camera input, image processing, and graphical " +
-        "status screens. Confirm that your camera interface " +
-        "is supported by the selected board."
-    },
-
-    automation: {
-      title: "Smart Workshop Controller",
-      description:
-        "Design a control dashboard for sensor values, output " +
-        "states, and configurable settings. Use suitable driver " +
-        "circuits and verify electrical limits."
-    },
-
-    multiboard: {
-      title: "Dual-Controller Workbench",
-      description:
-        "Connect an ESP32-P4 and a compatible RP2040 board " +
-        "through a supported communication interface. Define " +
-        "message formats and divide tasks between controllers."
-    },
-
-    instrument: {
-      title: "Portable Signal Visualizer",
-      description:
-        "Build a graphical measurement interface for displaying " +
-        "sampled signals. Check input protection, sampling " +
-        "requirements, and hardware limitations."
-    }
-  };
-
-  const generateButton = $("#generateIdea");
-  const ideaCategory = $("#ideaCategory");
-  const ideaResult = $("#ideaResult");
-
-  if (generateButton && ideaCategory && ideaResult) {
-    generateButton.addEventListener("click", () => {
-      const idea = ideas[ideaCategory.value];
-
-      if (!idea) {
-        showToast("PLEASE SELECT A PROJECT CATEGORY");
-        return;
-      }
-
-      $("#ideaTitle").textContent = idea.title;
-      $("#ideaDescription").textContent = idea.description;
-
-      ideaResult.style.display = "block";
-
-      ideaResult.scrollIntoView({
-        behavior: "smooth",
-        block: "nearest"
-      });
-
-      showToast("NEW PROJECT IDEA GENERATED");
-    });
-  }
-
-  // COPY CODE EXAMPLE
-
-  const copyCodeButton = $("#copyCode");
-  const codeExample = $("#codeExample");
-
-  if (copyCodeButton && codeExample) {
-    copyCodeButton.addEventListener("click", async () => {
-      try {
-        if (!navigator.clipboard || !window.isSecureContext) {
-          throw new Error("Clipboard API unavailable");
-        }
-
-        await navigator.clipboard.writeText(
-          codeExample.innerText
-        );
-
-        showToast("CODE COPIED SUCCESSFULLY");
-      } catch (error) {
-        showToast("COPY UNAVAILABLE — SELECT THE CODE MANUALLY");
-      }
-    });
-  }
-
-  // KEYBOARD SHORTCUT: PRESS / TO SEARCH
-
-  document.addEventListener("keydown", event => {
-    const target = event.target;
-
-    const isTyping =
-      target instanceof HTMLElement &&
-      (
-        target.isContentEditable ||
-        ["INPUT", "TEXTAREA", "SELECT"].includes(target.tagName)
-      );
-
-    if (event.key === "/" && !isTyping) {
-      event.preventDefault();
-
-      if (!searchPanel.classList.contains("active")) {
-        searchToggle.click();
-      } else {
-        siteSearch.focus();
-      }
-    }
-
-    if (event.key === "Escape") {
-      navLinks.classList.remove("open");
-      menuToggle.setAttribute("aria-expanded", "false");
-      menuToggle.textContent = "☰";
-
-      searchPanel.classList.remove("active");
-      searchToggle.setAttribute("aria-expanded", "false");
-    }
-  });
-
-  // INITIALIZE THE WEBSITE
-
-  applyProjectFilters();
-  updateChecklist();
-
-})();
-</script>
-
+  </script>
 </body>
 </html>
-
