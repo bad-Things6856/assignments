@@ -1029,7 +1029,6 @@
 
 <footer>
   <div class="container">
-
     <div class="footer-main">
 
       <div class="footer-brand">
@@ -1079,7 +1078,6 @@
       <span>© <span id="currentYear"></span> P4 LAB</span>
       <span>ENGINEERED BY CURIOSITY.</span>
     </div>
-
   </div>
 </footer>
 
@@ -1089,8 +1087,239 @@
 </button>
 
 <div class="toast" id="toast"
-     role="status" aria-live="polite">
-</div>
+     role="status" aria-live="polite"></div>
+
+<style>
+  footer {
+    background: #0b0d12;
+    color: #f1f1f1;
+    padding: 55px 0 20px;
+    border-top: 1px solid #262a33;
+    font-family: Arial, sans-serif;
+  }
+
+  footer .container {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+  }
+
+  .footer-main {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1.5fr;
+    gap: 45px;
+    padding-bottom: 40px;
+  }
+
+  .footer-brand .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    color: #fff;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  .logo-mark {
+    display: grid;
+    place-items: center;
+    width: 45px;
+    height: 45px;
+    background: #c4ff69;
+    color: #10130c;
+    border-radius: 10px;
+  }
+
+  .logo small {
+    display: block;
+    font-size: 9px;
+    letter-spacing: 2px;
+    margin-top: 5px;
+    color: #a8adba;
+  }
+
+  .footer-brand p {
+    max-width: 380px;
+    color: #a8adba;
+    line-height: 1.8;
+    font-size: 14px;
+    margin-top: 20px;
+  }
+
+  .footer-col {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .footer-col h4 {
+    font-size: 12px;
+    letter-spacing: 2px;
+    margin: 0 0 8px;
+    color: #c4ff69;
+  }
+
+  .footer-col a {
+    color: #a8adba;
+    text-decoration: none;
+    font-size: 14px;
+    width: fit-content;
+    transition: color 0.25s, transform 0.25s;
+  }
+
+  .footer-col a:hover {
+    color: #c4ff69;
+    transform: translateX(4px);
+  }
+
+  .footer-bottom {
+    border-top: 1px solid #262a33;
+    padding-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    flex-wrap: wrap;
+    color: #858b98;
+    font-size: 11px;
+    letter-spacing: 1px;
+  }
+
+  .back-top {
+    position: fixed;
+    right: 25px;
+    bottom: 25px;
+    width: 45px;
+    height: 45px;
+    border: 1px solid #c4ff69;
+    border-radius: 10px;
+    background: #c4ff69;
+    color: #10130c;
+    font-size: 22px;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(12px);
+    transition: 0.3s;
+    z-index: 1000;
+  }
+
+  .back-top.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .back-top:hover {
+    background: #fff;
+    border-color: #fff;
+  }
+
+  .toast {
+    position: fixed;
+    bottom: 25px;
+    left: 50%;
+    transform: translate(-50%, 20px);
+    background: #c4ff69;
+    color: #10130c;
+    padding: 12px 22px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: bold;
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.3s;
+    z-index: 1100;
+    max-width: 90%;
+    text-align: center;
+  }
+
+  .toast.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, 0);
+  }
+
+  @media (max-width: 768px) {
+    .footer-main {
+      grid-template-columns: 1fr 1fr;
+      gap: 35px 20px;
+    }
+
+    .footer-brand {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .footer-main {
+      grid-template-columns: 1fr;
+    }
+
+    .footer-brand {
+      grid-column: auto;
+    }
+
+    .footer-bottom {
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .back-top {
+      right: 15px;
+      bottom: 15px;
+    }
+  }
+</style>
+
+<script>
+  // Automatically update copyright year
+  document.getElementById("currentYear").textContent =
+    new Date().getFullYear();
+
+  const backTop = document.getElementById("backTop");
+  const toast = document.getElementById("toast");
+  let toastTimer;
+
+  // Show back-to-top button when scrolling
+  window.addEventListener("scroll", () => {
+    backTop.classList.toggle("show", window.scrollY > 300);
+  });
+
+  // Smooth scroll to top
+  backTop.addEventListener("click", () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  });
+
+  // Toast notification
+  function showToast(message) {
+    toast.textContent = message;
+    toast.classList.add("show");
+
+    clearTimeout(toastTimer);
+
+    toastTimer = setTimeout(() => {
+      toast.classList.remove("show");
+    }, 2500);
+  }
+
+  // Footer navigation messages
+  document.querySelectorAll('footer a[href^="#"]').forEach(link => {
+    link.addEventListener("click", () => {
+      const target = link.getAttribute("href");
+
+      if (target === "#home") {
+        showToast("Returning to home ↑");
+      } else if (document.querySelector(target)) {
+        showToast("Navigating to " + link.textContent.trim());
+      }
+    });
+  });
+</script>
+
 
 <!-- hrerererererereerererere samyun  -->
   
